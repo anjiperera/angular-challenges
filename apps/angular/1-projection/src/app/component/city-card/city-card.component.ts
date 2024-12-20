@@ -24,6 +24,14 @@ import { ListItemComponent } from '../../ui/list-item/list-item.component';
       </ng-template>
     </app-card>
   `,
+  standalone: true,
+  styles: [
+    `
+      .bg-light-yellow {
+        background-color: rgba(255, 222, 33, 0.1);
+      }
+    `,
+  ],
   imports: [CardComponent, AsyncPipe, ListItemComponent],
 })
 export class CityCardComponent implements OnInit {

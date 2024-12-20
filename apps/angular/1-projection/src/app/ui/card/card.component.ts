@@ -1,4 +1,4 @@
-import { NgFor, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -15,11 +15,13 @@ import {
     <ng-content select="img"></ng-content>
 
     <section>
-      <ng-container *ngFor="let item of list">
-        <ng-template
-          [ngTemplateOutlet]="rowTemplate"
-          [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
-      </ng-container>
+      @for (item of list; track $index) {
+        <ng-container>
+          <ng-template
+            [ngTemplateOutlet]="rowTemplate"
+            [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
+        </ng-container>
+      }
     </section>
 
     <button
@@ -29,7 +31,7 @@ import {
     </button>
   `,
   standalone: true,
-  imports: [NgFor, NgTemplateOutlet],
+  imports: [NgTemplateOutlet],
   host: {
     class: 'border-2 border-black rounded-md p-4 w-fit flex flex-col gap-3',
   },

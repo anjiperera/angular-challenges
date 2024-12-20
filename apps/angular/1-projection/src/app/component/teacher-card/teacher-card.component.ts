@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {
   FakeHttpService,
@@ -11,10 +10,7 @@ import { ListItemComponent } from '../../ui/list-item/list-item.component';
 @Component({
   selector: 'app-teacher-card',
   template: `
-    <app-card
-      [list]="teachers$ | async"
-      class="bg-light-red"
-      (add)="addTeacher()">
+    <app-card [list]="teachers()" class="bg-light-red" (add)="addTeacher()">
       <img src="assets/img/teacher.png" width="200px" />
       <ng-template #rowRef let-teacher>
         <app-list-item (delete)="deleteTeacher(teacher.id)">
@@ -30,11 +26,11 @@ import { ListItemComponent } from '../../ui/list-item/list-item.component';
       }
     `,
   ],
-  imports: [CardComponent, ListItemComponent, AsyncPipe],
+  imports: [CardComponent, ListItemComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TeacherCardComponent implements OnInit {
-  teachers$ = this.store.teachers$;
+  teachers = this.store.teachers;
 
   constructor(
     private http: FakeHttpService,
