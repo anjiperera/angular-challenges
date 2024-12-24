@@ -7,13 +7,12 @@ import { Todo } from '../model/todo.model';
 export class TodoService {
   private http = inject(HttpClient);
 
-  getAllTodos = () => {
-    return this.http.get<Todo[]>('https://jsonplaceholder.typicode.com/todos');
-  };
+  getAllTodos = () =>
+    this.http.get<Todo[]>('https://jsonplaceholder.typicode.com/todos');
 
-  updateTodo = (id: number) => {
-    return this.http.patch<Todo>(
-      `https://jsonplaceholder.typicode.com/todos/${id}`,
+  update = (id: number) =>
+    this.http.patch<Todo>(
+      `https://jsonplaceholder.typicode.com/tods/${id}`,
       JSON.stringify({
         id: id,
         title: randText(),
@@ -24,9 +23,7 @@ export class TodoService {
         },
       },
     );
-  };
 
-  deleteTodo = (id: number) => {
+  delete = (id: number) =>
     this.http.delete<void>(`https://jsonplaceholder.typicode.com/todos/${id}`);
-  };
 }
