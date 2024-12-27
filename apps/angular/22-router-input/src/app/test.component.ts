@@ -1,21 +1,24 @@
-import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-subscription',
-  imports: [AsyncPipe],
+  imports: [],
   template: `
-    <div>TestId: {{ testId$ | async }}</div>
-    <div>Permission: {{ permission$ | async }}</div>
-    <div>User: {{ user$ | async }}</div>
+    <div>TestId: {{ testId }}</div>
+    <div>Permission: {{ permission }}</div>
+    <div>User: {{ user }}</div>
   `,
 })
-export default class TestComponent {
-  private activatedRoute = inject(ActivatedRoute);
+export default class TestComponent implements OnInit, OnDestroy {
+  ngOnInit(): void {
+    console.log(`Initializing TestComponent ${this.testId}`);
+  }
 
-  testId$ = this.activatedRoute.params.pipe(map((p) => p['testId']));
-  permission$ = this.activatedRoute.data.pipe(map((d) => d['permission']));
-  user$ = this.activatedRoute.queryParams.pipe(map((q) => q['user']));
+  ngOnDestroy(): void {
+    console.log(`Destroying TestComponent`);
+  }
+
+  @Input() testId!: string;
+  @Input() permission!: string;
+  @Input() user!: string;
 }
