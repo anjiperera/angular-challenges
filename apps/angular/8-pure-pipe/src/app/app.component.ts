@@ -1,20 +1,16 @@
 import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
+import { DashConcatPipe } from './dash-concat.pipe';
 
 @Component({
-  imports: [NgFor],
+  imports: [NgFor, DashConcatPipe],
   selector: 'app-root',
   template: `
     <div *ngFor="let person of persons; let index = index">
-      {{ heavyComputation(person, index) }}
+      {{ person | dashConcat: index }}
     </div>
   `,
 })
 export class AppComponent {
   persons = ['toto', 'jack'];
-
-  heavyComputation(name: string, index: number) {
-    // very heavy computation
-    return `${name} - ${index}`;
-  }
 }
